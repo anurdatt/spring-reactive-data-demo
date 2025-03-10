@@ -37,8 +37,9 @@ public class ProductService {
     }
 
     public Mono<ProductDto> saveProduct(Mono<ProductDto> productDtoMono) {
+
         return productDtoMono
-                .doOnNext(p -> System.out.println(p.getName()))
+//                .doOnNext(p -> System.out.println(p.getName()))
                 .map(MapperUtil::DtoToEntity)
                 .flatMap(repository::insert)
                 .map(MapperUtil::EntityToDto);

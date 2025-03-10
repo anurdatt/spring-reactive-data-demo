@@ -2,6 +2,7 @@ package com.example.spring_reactive_data_demo.controller;
 
 import com.example.spring_reactive_data_demo.dto.ProductDto;
 import com.example.spring_reactive_data_demo.service.ProductService;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -33,7 +34,10 @@ public class ProductController {
     @PostMapping
     public Mono<ProductDto> saveProduct(@RequestBody Mono<ProductDto> productDtoMono) {
         System.out.println("saveProduct controller method called!");
-        return service.saveProduct(productDtoMono);
+
+//        productDtoMono = productDtoMono.doOnNext(System.out::println);
+        Mono<ProductDto> saved = service.saveProduct(productDtoMono.log());
+        return saved;//.log();//.doOnNext(System.out::println);
     }
 
     @PutMapping("/{id}")

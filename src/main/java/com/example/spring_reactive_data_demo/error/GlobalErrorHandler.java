@@ -22,8 +22,9 @@ public class GlobalErrorHandler {
     }
     @ExceptionHandler
     public Mono<ErrorResponse> handleError(Exception e) {
-            return Mono.just(ErrorResponse.builder(e, HttpStatusCode.valueOf(500), "Unknown Server error!")
-                    .build());
+        System.out.println("Inide controlerAdvice e=" + e);
+        return Mono.just(ErrorResponse.builder(e, HttpStatusCode.valueOf(500), "Unknown Server error!")
+                .build());
 
     }
 }

@@ -88,6 +88,7 @@ public class ProductControllerTests {
     @Test
     public void saveProductTest() {
         Mono<ProductDto> productDtoMono = Mono.just(new ProductDto("121", "watch", 1, 1000));
+//        productDtoMono = productDtoMono.doOnNext(System.out::println);
         when(service.saveProduct(productDtoMono)).thenReturn(productDtoMono);
 
         webTestClient.post()
